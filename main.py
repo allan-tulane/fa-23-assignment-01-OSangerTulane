@@ -7,7 +7,7 @@ See assignment-01.pdf for details.
 def foo(x):
     if x <= 1:
        return x
-   else:
+    else:
        return(foo(x-1) + foo(x-2))
 
     pass
