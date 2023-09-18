@@ -5,12 +5,23 @@ See assignment-01.pdf for details.
 # no imports needed.
 
 def foo(x):
-    ### TODO
+    if x <= 1:
+       return x
+   else:
+       return(foo(x-1) + foo(x-2))
+
     pass
 
 def longest_run(mylist, key):
-    ### TODO
-    pass
+    longKey = 0
+    currContiKey = 0
+    for i in mylist:
+        if i == key:
+            currContiKey += 1
+        else:
+            longKey = max(longKey, currContiKey)
+            currContiKey = 0
+    return max(longKey, currContiKey)
 
 
 class Result:
@@ -27,8 +38,32 @@ class Result:
     
     
 def longest_run_recursive(mylist, key):
-    ### TODO
-    pass
+    if not mylist or len(mylist) == 1:
+        return mylist[0] == key
+    
+    midPart = len(mylist) // 2
+    leftPart = mylist[:midPart]
+    rightPart = mylist[midPart:]
+    
+    left_longest = longest_run_recursive(left, key)
+    right_longest = longest_run_recursive(right, key)
+    
+    mid_longest = 0
+    leftLongCount = 0
+    rightLongCount = 0
+    for i in range(midPart-1, -1, -1):
+        if mylist[i] == key:
+            leftLongCount += 1
+        else:
+            break
+    for i in range(mid, len(mylist)):
+        if mylist[i] == key:
+            rightLongCount += 1
+        else:
+            break
+    mid_longest = leftLongCount + rightLongCount
+    
+    return max(leftLongCount, rightLongCount, mid_longest)
 
 ## Feel free to add your own tests here.
 def test_longest_run():
